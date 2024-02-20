@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@zemd/drag-and-drop examples</title>
+    <link rel="stylesheet" href="https://unpkg.com/prismjs@1.29.0/themes/prism-tomorrow.min.css" />
+  </head>
+  <body>
+    <main class="p-8">
+      <h1 class="text-2xl font-bold">Drag and Drop Examples</h1>
+      <hr />
+
+      <!-- ------------------------------------------------------------------------------------- -->
+      <section class="my-8 bg-slate-100 rounded-md p-8 flex gap-5">
+        <div id="example-single-target" class="basis-1/2">
+          <h2 class="text-xl font-semibold">Single Target</h2>
+          <hr />
+
+          <div
+            class="aspect-square w-60 p-4 bg-slate-400 my-5 text-white"
+            id="single-target-droppable"
+          >
+            Drag a box here
+          </div>
+
+          <div class="flex gap-4">
+            <div
+              class="border border-dashed border-gray-800 px-6 py-3 single-target-draggable cursor-move"
+            >
+              Glass
+            </div>
+            <div
+              class="border border-dashed border-gray-800 px-6 py-3 single-target-draggable cursor-move"
+            >
+              Banana
+            </div>
+            <div
+              class="border border-dashed border-gray-800 px-6 py-3 single-target-draggable cursor-move"
+            >
+              Paper
+            </div>
+          </div>
+        </div>
+        <pre class="language-javascript max-h-96">
+          <code id="example-single-target-code"></code>
+        </pre>
+      </section>
+
+      <!-- ------------------------------------------------------------------------------------- -->
+      <section class="my-8 bg-slate-100 rounded-md p-8 flex gap-5">
+        <div id="example-multiple-targets" class="basis-1/2">
+          <h2 class="text-xl font-semibold">Multiple Targets</h2>
+          <hr />
+
+          <div class="flex flex-wrap items-start gap-3 my-5">
+            <div
+              class="aspect-square w-40 p-4 bg-slate-400 text-white"
+              id="multiple-targets-droppable-1"
+            >
+              Drag a box here
+            </div>
+
+            <div
+              class="aspect-square w-40 p-4 bg-slate-400 text-white"
+              id="multiple-targets-droppable-2"
+            >
+              Drag a box here
+            </div>
+
+            <div
+              class="aspect-square w-40 p-4 bg-slate-400 text-white"
+              id="multiple-targets-droppable-3"
+            >
+              Drag a box here
+            </div>
+
+            <div
+              class="aspect-square w-40 p-4 bg-slate-400 text-white"
+              id="multiple-targets-droppable-4"
+            >
+              Drag a box here
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div
+              class="border border-dashed border-gray-800 px-6 py-3 multiple-targets-draggable cursor-move"
+            >
+              Glass
+            </div>
+            <div
+              class="border border-dashed border-gray-800 px-6 py-3 multiple-targets-draggable cursor-move"
+            >
+              Banana
+            </div>
+            <div
+              class="border border-dashed border-gray-800 px-6 py-3 multiple-targets-draggable cursor-move"
+            >
+              Paper
+            </div>
+          </div>
+        </div>
+        <pre class="language-javascript max-h-96">
+          <code id="example-multiple-targets-code"></code>
+        </pre>
+      </section>
+
+      <!-- ------------------------------------------------------------------------------------- -->
+      <section class="my-8 bg-slate-100 rounded-md p-8 flex gap-5">
+        <div id="example-naive-drag-around" class="basis-1/2">
+          <h2 class="text-xl font-semibold">Naive Drag Around</h2>
+          <hr />
+
+          <div class="my-5">
+            <div
+              class="aspect-square w-80 p-4 bg-slate-400 text-white relative mb-3"
+              id="naive-drag-around-droppable"
+            >
+              <div
+                class="border border-dashed border-gray-800 px-6 py-3 absolute cursor-move"
+                id="naive-drag-around-draggable"
+                style="left: 10px; top: 20px"
+              >
+                Drag me around
+              </div>
+            </div>
+            <label for="naive-drag-around-hide-checkbox">
+              <input type="checkbox" id="naive-drag-around-hide-checkbox" /> Hide the source item
+              while dragging
+            </label>
+          </div>
+        </div>
+        <pre class="language-javascript max-h-96">
+          <code id="example-naive-drag-around-code"></code>
+        </pre>
+      </section>
+
+      <!-- ------------------------------------------------------------------------------------- -->
+      <section class="my-8 bg-slate-100 rounded-md p-8 flex gap-5">
+        <div id="example-sortable-simple" class="basis-1/2">
+          <h2 class="text-xl font-semibold">Sortable simple</h2>
+          <hr />
+
+          <div class="my-5">
+            <div
+              class="w-80 p-4 bg-slate-400 text-white relative mb-3"
+              id="sortable-simple-droppable"
+            >
+              <div
+                class="border border-dashed border-gray-800 px-3 py-2 cursor-move w-3/4 mb-3"
+                id="sortable-simple-draggable-1"
+                style="left: 10px; top: 20px"
+              >
+                Write a cool JS library
+              </div>
+              <div
+                class="border border-dashed border-gray-800 px-3 py-2 cursor-move w-3/4 mb-3"
+                id="sortable-simple-draggable-2"
+                style="left: 10px; top: 20px"
+              >
+                Make it generic enough
+              </div>
+              <div
+                class="border border-dashed border-gray-800 px-3 py-2 cursor-move w-3/4 mb-3"
+                id="sortable-simple-draggable-3"
+                style="left: 10px; top: 20px"
+              >
+                Create some examples
+              </div>
+              <div
+                class="border border-dashed border-gray-800 px-3 py-2 cursor-move w-3/4 mb-3"
+                id="sortable-simple-draggable-4"
+                style="left: 10px; top: 20px"
+              >
+                Spam in Twitter and IRC to promote it (note that this element is taller than the
+                others)
+              </div>
+              <div
+                class="border border-dashed border-gray-800 px-3 py-2 cursor-move w-3/4 mb-3"
+                id="sortable-simple-draggable-5"
+                style="left: 10px; top: 20px"
+              >
+                Write README
+              </div>
+              <div
+                class="border border-dashed border-gray-800 px-3 py-2 cursor-move w-3/4 mb-3"
+                id="sortable-simple-draggable-6"
+                style="left: 10px; top: 20px"
+              >
+                ???
+              </div>
+              <div
+                class="border border-dashed border-gray-800 px-3 py-2 cursor-move w-3/4 mb-3"
+                id="sortable-simple-draggable-7"
+                style="left: 10px; top: 20px"
+              >
+                PROFIT
+              </div>
+            </div>
+          </div>
+        </div>
+        <pre class="language-javascript max-h-96">
+          <code id="example-sortable-simple-code"></code>
+        </pre>
+      </section>
+
+      <!-- <div class="simple1-debug min-h-[500px]"></div> -->
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
