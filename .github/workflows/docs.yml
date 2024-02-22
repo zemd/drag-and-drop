@@ -18,6 +18,10 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
+defaults:
+  run:
+    working-directory: ./examples
+
 jobs:
   # Single deploy job since we're just deploying
   deploy:
@@ -39,11 +43,9 @@ jobs:
 
       - name: Install dependencies
         run: bun install
-        working-directory: "./examples"
 
       - name: Build
         run: bun run build
-        working-directory: "./examples"
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
