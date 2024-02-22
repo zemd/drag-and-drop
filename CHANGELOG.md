@@ -1,5 +1,11 @@
 # @zemd/drag-and-drop
 
+## 0.0.3
+
+### Patch Changes
+
+- e4e5292: testing publish script
+
 ## 0.0.2
 
 ### Patch Changes
