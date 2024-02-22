@@ -28,7 +28,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "release": "bun run build && changeset publish"
+    "release": "tsc && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
