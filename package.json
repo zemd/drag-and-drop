@@ -1,6 +1,6 @@
 {
   "name": "@zemd/drag-and-drop",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "license": "Apache-2.0",
   "description": "A simple framework agnostic drag and drop library",
