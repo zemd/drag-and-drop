@@ -1,4 +1,4 @@
-import { getDragElementByEvent, updateMetaFromEvent } from "../utils";
+import { getDragElementByEvent, updateMetaFromEvent } from "../utils.js";
 
 export const ondrag = (event: DragEvent) => {
   const element = getDragElementByEvent(event);

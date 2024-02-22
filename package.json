@@ -33,6 +33,7 @@
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "@types/bun": "latest",
+    "@zemd/tsconfig": "^1.2.0",
     "typescript": "^5.3.3"
   }
 }

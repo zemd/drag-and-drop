@@ -1,5 +1,5 @@
-import type { TDraggable } from "./draggable/createDraggable";
-import type { TDroppable } from "./droppable/createDroppable";
+import type { TDraggable } from "./draggable/createDraggable.js";
+import type { TDroppable } from "./droppable/createDroppable.js";
 
 const draggableStore = new Set<TDraggable>();
 const droppableStore = new Set<TDroppable>();

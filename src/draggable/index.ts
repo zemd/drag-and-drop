@@ -1,6 +1,6 @@
 import { createDraggable, type TCreateDraggable, type TEffectAllowed } from "./createDraggable.js";
-import { registry } from "../registry";
-import { tryAddGlobalEventListeners, tryRemoveGlobalEventListeners } from "../events";
+import { registry } from "../registry.js";
+import { tryAddGlobalEventListeners, tryRemoveGlobalEventListeners } from "../events.js";
 
 export type TDraggableOpts = {
   /**
@@ -15,7 +15,13 @@ export type TDraggableOpts = {
   effectAllowed?: TEffectAllowed;
 } & Pick<
   TCreateDraggable,
-  "type" | "canDrag" | "onDrag" | "onDragStart" | "onDragEnd" | "setHandleElement" | "createDragImage"
+  | "type"
+  | "canDrag"
+  | "onDrag"
+  | "onDragStart"
+  | "onDragEnd"
+  | "setHandleElement"
+  | "createDragImage"
 >;
 
 type TDisposableArray = Array<() => void>;

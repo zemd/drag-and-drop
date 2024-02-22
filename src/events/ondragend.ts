@@ -1,5 +1,5 @@
-import { registry } from "../registry";
-import { notifyDroppables } from "../utils";
+import { registry } from "../registry.js";
+import { notifyDroppables } from "../utils.js";
 
 export const ondragend = (event: DragEvent) => {
   const element = registry.getActiveDraggable();

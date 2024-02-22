@@ -1,4 +1,4 @@
-import { registry } from "../registry";
+import { registry } from "../registry.js";
 
 export const ondragenter = (event: DragEvent) => {
   const droppable = registry.getDroppable(event.target as HTMLElement);
