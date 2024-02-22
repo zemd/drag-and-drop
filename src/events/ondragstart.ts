@@ -1,6 +1,11 @@
-import type { TDraggable } from "../draggable/createDraggable";
-import { registry } from "../registry";
-import { calculatePositionOffset, getDragElementByEvent, notifyDroppables, updateMetaFromEvent } from "../utils";
+import type { TDraggable } from "../draggable/createDraggable.js";
+import { registry } from "../registry.js";
+import {
+  calculatePositionOffset,
+  getDragElementByEvent,
+  notifyDroppables,
+  updateMetaFromEvent,
+} from "../utils.js";
 
 const handleDragImage = (element: TDraggable, event: DragEvent) => {
   const [offsetX, offsetY] = calculatePositionOffset(element, event);
@@ -32,7 +37,7 @@ export const ondragstart = (event: DragEvent) => {
   handleDragImage(element, event);
   element.triggerEvent("dragstart", event);
   // storing the initial position of the element and the mouse
-  // this will help to calculate the position of the drag image and 
+  // this will help to calculate the position of the drag image and
   // eventual position of the element after the drag ends
   updateMetaFromEvent(element, event, "initial");
 

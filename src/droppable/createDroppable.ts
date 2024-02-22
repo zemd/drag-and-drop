@@ -1,8 +1,5 @@
-import {
-  DATATRANSFER_MIME_TYPE,
-  type TDraggable,
-} from "../draggable/createDraggable";
-import { registry } from "../registry";
+import { DATATRANSFER_MIME_TYPE, type TDraggable } from "../draggable/createDraggable.js";
+import { registry } from "../registry.js";
 
 type TDroppableEventType =
   | "dragover"
@@ -61,61 +58,49 @@ const addEventListener = (
 };
 
 export const createDroppable = (input: TCreateDroppable): TDroppable => {
-  const removeDropEventListener = addEventListener(
-    "drop",
-    input.element,
-    (event) => {
-      event.preventDefault();
-      if (typeof input.onDrop === "function") {
-        const draggable = registry.getActiveDraggable();
-        const canDrop = input.canDrop ?? (() => true);
-        if (draggable && !canDrop(draggable)) {
-          return;
-        }
-        if (draggable) {
-          input.onDrop({
-            element: input.element,
-            draggable,
-            getData(key?: string): string {
-              return (
-                event.dataTransfer?.getData(key ?? DATATRANSFER_MIME_TYPE) ?? ""
-              );
-            },
-            origEvent: event,
-          });
-        } else {
-          console.warn("No active draggable found.");
-        }
+  const removeDropEventListener = addEventListener("drop", input.element, (event) => {
+    event.preventDefault();
+    if (typeof input.onDrop === "function") {
+      const draggable = registry.getActiveDraggable();
+      const canDrop = input.canDrop ?? (() => true);
+      if (draggable && !canDrop(draggable)) {
+        return;
       }
-    },
-  );
-  const removeDragOverEventListener = addEventListener(
-    "dragover",
-    input.element,
-    (event) => {
-      event.preventDefault();
-      if (typeof input.onDragOver === "function") {
-        const draggable = registry.getActiveDraggable();
-        if (draggable) {
-          input.onDragOver({
-            element: input.element,
-            draggable,
-          });
-        } else {
-          console.warn("No active draggable found.");
-        }
+      if (draggable) {
+        input.onDrop({
+          element: input.element,
+          draggable,
+          getData(key?: string): string {
+            return event.dataTransfer?.getData(key ?? DATATRANSFER_MIME_TYPE) ?? "";
+          },
+          origEvent: event,
+        });
+      } else {
+        console.warn("No active draggable found.");
       }
-    },
-  );
+    }
+  });
+  const removeDragOverEventListener = addEventListener("dragover", input.element, (event) => {
+    event.preventDefault();
+    if (typeof input.onDragOver === "function") {
+      const draggable = registry.getActiveDraggable();
+      if (draggable) {
+        input.onDragOver({
+          element: input.element,
+          draggable,
+        });
+      } else {
+        console.warn("No active draggable found.");
+      }
+    }
+  });
 
   return {
     get element(): HTMLElement {
       return input.element;
     },
     canDrop(draggable: TDraggable): boolean {
-      return typeof input.canDrop === "function"
-        ? input.canDrop(draggable)
-        : true;
+      return typeof input.canDrop === "function" ? input.canDrop(draggable) : true;
     },
     triggerEvent(eventType: TDroppableEventType, event?: DragEvent) {
       switch (eventType) {
@@ -165,9 +150,7 @@ export const createDroppable = (input: TCreateDroppable): TDroppable => {
           if (typeof input.onDrop === "function") {
             const draggable = registry.getActiveDraggable();
             if (!event) {
-              console.error(
-                "DragEvent is required for drop event but was not provided.",
-              );
+              console.error("DragEvent is required for drop event but was not provided.");
               return;
             }
             if (draggable) {
@@ -175,11 +158,7 @@ export const createDroppable = (input: TCreateDroppable): TDroppable => {
                 element: input.element,
                 draggable,
                 getData(key?: string): string {
-                  return (
-                    event.dataTransfer?.getData(
-                      key ?? DATATRANSFER_MIME_TYPE,
-                    ) ?? ""
-                  );
+                  return event.dataTransfer?.getData(key ?? DATATRANSFER_MIME_TYPE) ?? "";
                 },
                 origEvent: event,
               });

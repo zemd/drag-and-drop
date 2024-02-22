@@ -1,5 +1,5 @@
-import type { TDraggable } from "./draggable/createDraggable";
-import { registry } from "./registry";
+import type { TDraggable } from "./draggable/createDraggable.js";
+import { registry } from "./registry.js";
 
 export const checkEvent = (event: DragEvent): boolean => {
   // using .target instead of .currentTarget here since we bound the listener to window object
@@ -38,7 +38,10 @@ type TOffsetCompatible = {
  * when you need to understand the position of the element and the position of the mouse
  * relative to the element.
  */
-export const calculatePositionOffset = (element: TDraggable, event: TOffsetCompatible) => {
+export const calculatePositionOffset = (
+  element: TDraggable,
+  event: TOffsetCompatible,
+): [number, number] => {
   if (element.handleElement === element.element) {
     return [event.offsetX, event.offsetY];
   }

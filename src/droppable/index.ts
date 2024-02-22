@@ -1,6 +1,6 @@
-import { tryAddGlobalEventListeners, tryRemoveGlobalEventListeners } from "../events";
-import { registry } from "../registry";
-import { createDroppable, type TCreateDroppable } from "./createDroppable";
+import { tryAddGlobalEventListeners, tryRemoveGlobalEventListeners } from "../events.js";
+import { registry } from "../registry.js";
+import { createDroppable, type TCreateDroppable } from "./createDroppable.js";
 
 type TDroppableOpts = {
   element: HTMLElement | null;

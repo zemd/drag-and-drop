@@ -1,4 +1,4 @@
-import { createDragImage } from "../utils";
+import { createDragImage } from "../utils.js";
 
 export type TEffectAllowed =
   | "none"
@@ -111,11 +111,12 @@ export const createDraggable = (input: TCreateDraggable): TDraggable => {
       return input.effectAllowed;
     },
     get meta(): Record<string, any> {
-      const data: Record<string, any> = Array.from(metaStore).reduce<
-        Record<string, any>
-      >((acc, [key, item]) => {
-        return Object.assign(acc, { [key]: item });
-      }, {});
+      const data: Record<string, any> = Array.from(metaStore).reduce<Record<string, any>>(
+        (acc, [key, item]) => {
+          return Object.assign(acc, { [key]: item });
+        },
+        {},
+      );
       return Object.freeze(data);
     },
     set(key: string, value: any) {
@@ -125,9 +126,7 @@ export const createDraggable = (input: TCreateDraggable): TDraggable => {
       disposeDraggableAttribute();
     },
     canDrag(): boolean {
-      return typeof input.canDrag === "function"
-        ? input.canDrag(input.element)
-        : true;
+      return typeof input.canDrag === "function" ? input.canDrag(input.element) : true;
     },
     triggerEvent(eventType: TDraggableEventType, args?: unknown): void {
       switch (eventType) {
@@ -157,10 +156,7 @@ export const createDraggable = (input: TCreateDraggable): TDraggable => {
               element: input.element,
               handleElement,
               setData: (data: string, key?: string) => {
-                event.dataTransfer?.setData(
-                  key ?? DATATRANSFER_MIME_TYPE,
-                  data,
-                );
+                event.dataTransfer?.setData(key ?? DATATRANSFER_MIME_TYPE, data);
               },
             });
           }

@@ -1,2 +1,2 @@
-export * from "./draggable";
-export * from "./droppable";
+export * from "./draggable/index.js";
+export * from "./droppable/index.js";

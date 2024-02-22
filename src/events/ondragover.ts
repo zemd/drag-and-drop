@@ -1,4 +1,4 @@
-import { registry } from "../registry";
+import { registry } from "../registry.js";
 
 export const ondragover = (event: DragEvent) => {
   // const point: TClientPoint = new ClientPoint(event.clientX, event.clientY);

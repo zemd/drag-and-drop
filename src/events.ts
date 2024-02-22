@@ -1,11 +1,11 @@
-import { registry } from "./registry";
-import { ondragstart } from "./events/ondragstart";
-import { ondragend } from "./events/ondragend";
-import { ondrag } from "./events/ondrag";
-import { ondragover } from "./events/ondragover";
-import { ondragenter } from "./events/ondragenter";
-import { ondragleave } from "./events/ondragleave";
-import { ondrop } from "./events/ondrop";
+import { registry } from "./registry.js";
+import { ondragstart } from "./events/ondragstart.js";
+import { ondragend } from "./events/ondragend.js";
+import { ondrag } from "./events/ondrag.js";
+import { ondragover } from "./events/ondragover.js";
+import { ondragenter } from "./events/ondragenter.js";
+import { ondragleave } from "./events/ondragleave.js";
+import { ondrop } from "./events/ondrop.js";
 
 let isEventListenersAdded = false;
 

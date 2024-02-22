@@ -1,4 +1,4 @@
-import { registry } from "../registry";
+import { registry } from "../registry.js";
 
 export const ondrop = (event: DragEvent) => {
   // event.preventDefault();
