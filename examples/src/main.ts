@@ -3,12 +3,14 @@ import Prism from "prismjs";
 import { exampleMultipleTargets } from "./exampleMultipleTarget";
 import { exampleSingleTarget } from "./exampleSingleTarget";
 import { exampleNaiveDragAround } from "./exampleNaiveDragAround";
+import { exampleSortableSimple } from "./exampleSortableSimple";
 // import { registry } from "../../../src/registry";
 
 document.addEventListener("DOMContentLoaded", () => {
   exampleSingleTarget();
   exampleMultipleTargets();
   exampleNaiveDragAround();
+  exampleSortableSimple();
   Prism.highlightAll();
 
   // setInterval(() => {

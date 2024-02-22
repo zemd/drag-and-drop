@@ -1,5 +1,5 @@
-import { draggable, droppable } from "../../../src";
-import { registry } from "../../../src/registry";
+import { draggable, droppable } from "../../src";
+import { registry } from "../../src/registry";
 
 function isHTMLElement(element: any): element is HTMLElement {
   return element instanceof HTMLElement;
@@ -8,9 +8,10 @@ function isHTMLElement(element: any): element is HTMLElement {
 export const exampleNaiveDragAround = () => {
   const element = document.querySelector("#naive-drag-around-draggable");
   if (isHTMLElement(element)) {
-    const hideSourceCheckbox: HTMLInputElement | null = document.querySelector<HTMLInputElement>(
-      "#naive-drag-around-hide-checkbox"
-    );
+    const hideSourceCheckbox: HTMLInputElement | null =
+      document.querySelector<HTMLInputElement>(
+        "#naive-drag-around-hide-checkbox",
+      );
     draggable({
       element,
       createDragImage(element: HTMLElement): HTMLElement {
@@ -33,15 +34,19 @@ export const exampleNaiveDragAround = () => {
   droppable({
     element: document.querySelector("#naive-drag-around-droppable"),
     onDrop(event) {
-      const dragEl = registry.getDraggable(event.draggable);
+      const dragEl = event.draggable;
       if (dragEl) {
         const left =
-          parseFloat(event.draggable.style.left) + dragEl.meta.offsetX - dragEl.meta.initialoffsetX;
+          parseFloat(event.draggable.element.style.left) +
+          dragEl.meta.offsetX -
+          dragEl.meta.initialoffsetX;
         const top =
-          parseFloat(event.draggable.style.top) + dragEl.meta.offsetY - dragEl.meta.initialoffsetY;
+          parseFloat(event.draggable.element.style.top) +
+          dragEl.meta.offsetY -
+          dragEl.meta.initialoffsetY;
 
-        event.draggable.style.left = `${left}px`;
-        event.draggable.style.top = `${top}px`;
+        event.draggable.element.style.left = `${left}px`;
+        event.draggable.element.style.top = `${top}px`;
       }
     },
   });

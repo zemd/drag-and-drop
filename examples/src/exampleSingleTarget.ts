@@ -1,8 +1,10 @@
-import { TDragStartEvent, TDraggableEvent } from "./../../../src/draggable/createDraggable";
-import { TDroppableEvent } from "./../../../src/droppable/createDroppable";
-import { TDraggable } from "../../../src/draggable/createDraggable";
-
-import { draggable, droppable } from "@zemd/drag-and-drop";
+import {
+  TDragStartEvent,
+  TDraggableEvent,
+} from "./../../src/draggable/createDraggable";
+import { TDroppableEvent } from "./../../src/droppable/createDroppable";
+import { TDraggable } from "../../src/draggable/createDraggable";
+import { draggable, droppable } from "../../src";
 
 export function exampleSingleTarget() {
   draggable({
@@ -22,7 +24,9 @@ export function exampleSingleTarget() {
     },
     onDrop(event: TDroppableEvent) {
       const { draggable } = event;
-      alert(`You dropped ${draggable.textContent?.trim()} into Dustbin!`);
+      alert(
+        `You dropped ${draggable.element.textContent?.trim()} into Dustbin!`,
+      );
     },
     onDragStart(event: TDroppableEvent) {
       event.element.style.backgroundColor = "darkkhaki";

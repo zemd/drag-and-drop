@@ -39,13 +39,13 @@ type TOffsetCompatible = {
  * relative to the element.
  */
 export const calculatePositionOffset = (element: TDraggable, event: TOffsetCompatible) => {
-  if (element.draggable === element.element) {
+  if (element.handleElement === element.element) {
     return [event.offsetX, event.offsetY];
   }
   // else there is a dragHandle
   // INFO: getBoundingClientRect() method returns information about the size of an element and its position relative to the **viewport**.
   const rectEl = element.element.getBoundingClientRect();
-  const rectDrag = element.draggable.getBoundingClientRect();
+  const rectDrag = element.handleElement.getBoundingClientRect();
 
   const offsetX = rectDrag.x - rectEl.x + event.offsetX;
   const offsetY = rectDrag.y - rectEl.y + event.offsetY;
@@ -82,10 +82,11 @@ export const createDragImage = (element: HTMLElement): HTMLElement => {
   innerElement.append(cloned);
   dragImageElement.append(innerElement);
 
-  dragImageElement.style.position = "fixed";
-  dragImageElement.style.left = "-10000px"; //`${element.getBoundingClientRect().left}px`;
-  dragImageElement.style.top = `${element.getBoundingClientRect().top}px`;
+  // dragImageElement.style.position = "fixed";
+  // dragImageElement.style.left = "-10000px"; //`${element.getBoundingClientRect().left}px`;
+  // dragImageElement.style.top = `${element.getBoundingClientRect().top}px`;
   dragImageElement.style.pointerEvents = "none";
+  dragImageElement.style.display = "grid";
 
   // we need to add the dragImageElement to the body to render it
   document.body.append(dragImageElement);
@@ -98,13 +99,11 @@ export const createDragImage = (element: HTMLElement): HTMLElement => {
   // offsetWidth is a measurement in pixels of the element's CSS width, including any borders,
   // padding, and vertical scrollbars (if rendered). It does not include the width of
   // pseudo-elements such as ::before or ::after.
-  innerElement.style.width = `${element.offsetWidth}px`;
-  innerElement.style.height = `${element.getBoundingClientRect().height}px`;
-  innerElement.style.display = "flex";
-  innerElement.style.alignItems = "stretch";
-  innerElement.style.flexDirection = "column";
-  innerElement.style.boxShadow = "2px 2px 0px black";
-  //innerElement.style.transform = 'rotateZ(-6deg)';
+  dragImageElement.style.width = `${element.clientWidth}px`;
+  dragImageElement.style.height = `${element.getBoundingClientRect().height}px`;
+  innerElement.style.display = "grid";
+  innerElement.style.placeItems = "center";
+  innerElement.style.transform = "rotateZ(4deg)";
 
   return dragImageElement;
 };

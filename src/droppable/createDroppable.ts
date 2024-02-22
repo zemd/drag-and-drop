@@ -1,4 +1,7 @@
-import { DATATRANSFER_MIME_TYPE, type TDraggable } from "../draggable/createDraggable";
+import {
+  DATATRANSFER_MIME_TYPE,
+  type TDraggable,
+} from "../draggable/createDraggable";
 import { registry } from "../registry";
 
 type TDroppableEventType =
@@ -18,7 +21,7 @@ export type TDroppable = {
 
 export type TDroppableEvent = {
   element: HTMLElement;
-  draggable: HTMLElement;
+  draggable: TDraggable;
 };
 
 type TDroppableDropEvent = TDroppableEvent & {
@@ -43,7 +46,7 @@ const addEventListener = (
   eventType: TDroppableEventType,
   element: HTMLElement,
   callback: (event: DragEvent) => void,
-  preventDefault: boolean = true
+  preventDefault: boolean = true,
 ) => {
   const cb = (event: DragEvent) => {
     if (preventDefault) {
@@ -58,55 +61,67 @@ const addEventListener = (
 };
 
 export const createDroppable = (input: TCreateDroppable): TDroppable => {
-  const removeDropEventListener = addEventListener("drop", input.element, (event) => {
-    event.preventDefault();
-    if (typeof input.onDrop === "function") {
-      const draggable = registry.getActiveDraggable()?.element;
-      const canDrop = input.canDrop ?? (() => true);
-      if (draggable && !canDrop(registry.getDraggable(draggable)!)) {
-        return;
+  const removeDropEventListener = addEventListener(
+    "drop",
+    input.element,
+    (event) => {
+      event.preventDefault();
+      if (typeof input.onDrop === "function") {
+        const draggable = registry.getActiveDraggable();
+        const canDrop = input.canDrop ?? (() => true);
+        if (draggable && !canDrop(draggable)) {
+          return;
+        }
+        if (draggable) {
+          input.onDrop({
+            element: input.element,
+            draggable,
+            getData(key?: string): string {
+              return (
+                event.dataTransfer?.getData(key ?? DATATRANSFER_MIME_TYPE) ?? ""
+              );
+            },
+            origEvent: event,
+          });
+        } else {
+          console.warn("No active draggable found.");
+        }
       }
-      if (draggable) {
-        input.onDrop({
-          element: input.element,
-          draggable,
-          getData(key?: string): string {
-            return event.dataTransfer?.getData(key ?? DATATRANSFER_MIME_TYPE) ?? "";
-          },
-          origEvent: event,
-        });
-      } else {
-        console.warn("No active draggable found.");
+    },
+  );
+  const removeDragOverEventListener = addEventListener(
+    "dragover",
+    input.element,
+    (event) => {
+      event.preventDefault();
+      if (typeof input.onDragOver === "function") {
+        const draggable = registry.getActiveDraggable();
+        if (draggable) {
+          input.onDragOver({
+            element: input.element,
+            draggable,
+          });
+        } else {
+          console.warn("No active draggable found.");
+        }
       }
-    }
-  });
-  const removeDragOverEventListener = addEventListener("dragover", input.element, (event) => {
-    event.preventDefault();
-    if (typeof input.onDragOver === "function") {
-      const draggable = registry.getActiveDraggable()?.element;
-      if (draggable) {
-        input.onDragOver({
-          element: input.element,
-          draggable,
-        });
-      } else {
-        console.warn("No active draggable found.");
-      }
-    }
-  });
+    },
+  );
 
   return {
     get element(): HTMLElement {
       return input.element;
     },
     canDrop(draggable: TDraggable): boolean {
-      return typeof input.canDrop === "function" ? input.canDrop(draggable) : true;
+      return typeof input.canDrop === "function"
+        ? input.canDrop(draggable)
+        : true;
     },
     triggerEvent(eventType: TDroppableEventType, event?: DragEvent) {
       switch (eventType) {
         case "dragenter": {
           if (typeof input.onDragEnter === "function") {
-            const draggable = registry.getActiveDraggable()?.element;
+            const draggable = registry.getActiveDraggable();
             if (draggable) {
               input.onDragEnter({
                 element: input.element,
@@ -120,7 +135,7 @@ export const createDroppable = (input: TCreateDroppable): TDroppable => {
         }
         case "dragleave": {
           if (typeof input.onDragLeave === "function") {
-            const draggable = registry.getActiveDraggable()?.element;
+            const draggable = registry.getActiveDraggable();
             if (draggable) {
               input.onDragLeave({
                 element: input.element,
@@ -134,7 +149,7 @@ export const createDroppable = (input: TCreateDroppable): TDroppable => {
         }
         case "dragover": {
           if (typeof input.onDragOver === "function") {
-            const draggable = registry.getActiveDraggable()?.element;
+            const draggable = registry.getActiveDraggable();
             if (draggable) {
               input.onDragOver({
                 element: input.element,
@@ -148,9 +163,11 @@ export const createDroppable = (input: TCreateDroppable): TDroppable => {
         }
         case "drop": {
           if (typeof input.onDrop === "function") {
-            const draggable = registry.getActiveDraggable()?.element;
+            const draggable = registry.getActiveDraggable();
             if (!event) {
-              console.error("DragEvent is required for drop event but was not provided.");
+              console.error(
+                "DragEvent is required for drop event but was not provided.",
+              );
               return;
             }
             if (draggable) {
@@ -158,7 +175,11 @@ export const createDroppable = (input: TCreateDroppable): TDroppable => {
                 element: input.element,
                 draggable,
                 getData(key?: string): string {
-                  return event.dataTransfer?.getData(key ?? DATATRANSFER_MIME_TYPE) ?? "";
+                  return (
+                    event.dataTransfer?.getData(
+                      key ?? DATATRANSFER_MIME_TYPE,
+                    ) ?? ""
+                  );
                 },
                 origEvent: event,
               });
@@ -170,7 +191,7 @@ export const createDroppable = (input: TCreateDroppable): TDroppable => {
         }
         case "dragstart": {
           if (typeof input.onDragStart === "function") {
-            const draggable = registry.getActiveDraggable()?.element;
+            const draggable = registry.getActiveDraggable();
             if (draggable) {
               input.onDragStart({
                 element: input.element,
@@ -184,7 +205,7 @@ export const createDroppable = (input: TCreateDroppable): TDroppable => {
         }
         case "dragend": {
           if (typeof input.onDragEnd === "function") {
-            const draggable = registry.getActiveDraggable()?.element;
+            const draggable = registry.getActiveDraggable();
             if (draggable) {
               input.onDragEnd({
                 element: input.element,

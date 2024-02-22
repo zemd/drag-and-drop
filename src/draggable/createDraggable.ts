@@ -33,7 +33,7 @@ export type TDragEvent = TDraggableEvent;
 export type TDragEndEvent = TDraggableEvent;
 
 export type TDraggable = {
-  get draggable(): HTMLElement;
+  get handleElement(): HTMLElement;
   get element(): HTMLElement;
   get order(): number;
   get type(): string;
@@ -95,7 +95,7 @@ export const createDraggable = (input: TCreateDraggable): TDraggable => {
   metaStore.set("order", input.order);
 
   return {
-    get draggable(): HTMLElement {
+    get handleElement(): HTMLElement {
       return handleElement;
     },
     get element(): HTMLElement {
@@ -111,12 +111,11 @@ export const createDraggable = (input: TCreateDraggable): TDraggable => {
       return input.effectAllowed;
     },
     get meta(): Record<string, any> {
-      const data: Record<string, any> = Array.from(metaStore).reduce<Record<string, any>>(
-        (acc, [key, item]) => {
-          return Object.assign(acc, { [key]: item });
-        },
-        {}
-      );
+      const data: Record<string, any> = Array.from(metaStore).reduce<
+        Record<string, any>
+      >((acc, [key, item]) => {
+        return Object.assign(acc, { [key]: item });
+      }, {});
       return Object.freeze(data);
     },
     set(key: string, value: any) {
@@ -126,7 +125,9 @@ export const createDraggable = (input: TCreateDraggable): TDraggable => {
       disposeDraggableAttribute();
     },
     canDrag(): boolean {
-      return typeof input.canDrag === "function" ? input.canDrag(input.element) : true;
+      return typeof input.canDrag === "function"
+        ? input.canDrag(input.element)
+        : true;
     },
     triggerEvent(eventType: TDraggableEventType, args?: unknown): void {
       switch (eventType) {
@@ -156,7 +157,10 @@ export const createDraggable = (input: TCreateDraggable): TDraggable => {
               element: input.element,
               handleElement,
               setData: (data: string, key?: string) => {
-                event.dataTransfer?.setData(key ?? DATATRANSFER_MIME_TYPE, data);
+                event.dataTransfer?.setData(
+                  key ?? DATATRANSFER_MIME_TYPE,
+                  data,
+                );
               },
             });
           }
