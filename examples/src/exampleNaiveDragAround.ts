@@ -1,5 +1,4 @@
 import { draggable, droppable } from "../../src";
-import { registry } from "../../src/registry";
 
 function isHTMLElement(element: any): element is HTMLElement {
   return element instanceof HTMLElement;
@@ -8,10 +7,9 @@ function isHTMLElement(element: any): element is HTMLElement {
 export const exampleNaiveDragAround = () => {
   const element = document.querySelector("#naive-drag-around-draggable");
   if (isHTMLElement(element)) {
-    const hideSourceCheckbox: HTMLInputElement | null =
-      document.querySelector<HTMLInputElement>(
-        "#naive-drag-around-hide-checkbox",
-      );
+    const hideSourceCheckbox: HTMLInputElement | null = document.querySelector<HTMLInputElement>(
+      "#naive-drag-around-hide-checkbox",
+    );
     draggable({
       element,
       createDragImage(element: HTMLElement): HTMLElement {

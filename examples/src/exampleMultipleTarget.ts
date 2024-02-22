@@ -1,26 +1,20 @@
 import { draggable, droppable } from "../../src";
-import {
-  TDragStartEvent,
-  TDraggable,
-  TDraggableEvent,
-} from "../../src/draggable/createDraggable";
+import { TDragStartEvent, TDraggable, TDraggableEvent } from "../../src/draggable/createDraggable";
 import { TDroppableEvent } from "../../src/droppable/createDroppable";
 
 export const exampleMultipleTargets = () => {
-  document
-    .querySelectorAll(".multiple-targets-draggable")
-    .forEach((element) => {
-      draggable({
-        type: element.textContent?.trim(),
-        element: element as HTMLElement,
-        onDragStart(event: TDragStartEvent) {
-          event.element.style.opacity = "0.5";
-        },
-        onDragEnd(event: TDraggableEvent) {
-          event.element.style.opacity = "1";
-        },
-      });
+  document.querySelectorAll(".multiple-targets-draggable").forEach((element) => {
+    draggable({
+      type: element.textContent?.trim(),
+      element: element as HTMLElement,
+      onDragStart(event: TDragStartEvent) {
+        event.element.style.opacity = "0.5";
+      },
+      onDragEnd(event: TDraggableEvent) {
+        event.element.style.opacity = "1";
+      },
     });
+  });
 
   droppable({
     element: document.querySelector("#multiple-targets-droppable-1"),
@@ -45,7 +39,7 @@ export const exampleMultipleTargets = () => {
     },
     onDrop(event: TDroppableEvent) {
       const { draggable } = event;
-      alert(`You dropped ${draggable.textContent?.trim()} into Dustbin!`);
+      alert(`You dropped ${draggable.element.textContent?.trim()} into Dustbin!`);
     },
   });
   droppable({
@@ -71,9 +65,7 @@ export const exampleMultipleTargets = () => {
     },
     onDrop(event: TDroppableEvent) {
       const { draggable } = event;
-      alert(
-        `You dropped ${draggable.element.textContent?.trim()} into Dustbin!`,
-      );
+      alert(`You dropped ${draggable.element.textContent?.trim()} into Dustbin!`);
     },
   });
   droppable({
@@ -99,9 +91,7 @@ export const exampleMultipleTargets = () => {
     },
     onDrop(event: TDroppableEvent) {
       const { draggable } = event;
-      alert(
-        `You dropped ${draggable.element.textContent?.trim()} into Dustbin!`,
-      );
+      alert(`You dropped ${draggable.element.textContent?.trim()} into Dustbin!`);
     },
   });
   droppable({
@@ -127,9 +117,7 @@ export const exampleMultipleTargets = () => {
     },
     onDrop(event: TDroppableEvent) {
       const { draggable } = event;
-      alert(
-        `You dropped ${draggable.element.textContent?.trim()} into Dustbin!`,
-      );
+      alert(`You dropped ${draggable.element.textContent?.trim()} into Dustbin!`);
     },
   });
 
